@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-struct Wallets: Hashable {
-    let color: Color
-    let index: Int
-}
-
 struct WalletView: View {
     
     var wallets = [
@@ -23,19 +18,25 @@ struct WalletView: View {
     var body: some View {
         
         VStack {
-            topTitle()
+            title("My Wallet", size: 30)
             ScrollView() {
-                cardSpace()
+                VStack {
+                    cardSpace()
+                    VStack {
+                        title("title", size: 28)
+                        CoinlistView()
+                    }
+                    .offset(y: -365)
+                }
             }
-            Spacer()
         }
         
     }
     
-    func topTitle() -> some View {
+    func title(_ title: String, size: CGFloat) -> some View {
         HStack {
-            Text("My Wallet")
-                .font(.system(size: 30, weight: .bold))
+            Text(title)
+                .font(.system(size: size, weight: .bold))
                 .padding(.horizontal, 25)
                 .padding(.vertical, 10)
             Spacer()
@@ -53,12 +54,11 @@ struct WalletView: View {
             .fill(data.color)
             .frame(width: CGFloat(data.index + 15) * 20,
                    height: 180)
-            .padding(EdgeInsets(top: 4, leading: 25, bottom: 4, trailing: 25))
+            .padding(EdgeInsets(top: 4, leading: 20, bottom: 4, trailing: 20))
             .offset(y: CGFloat(data.index) * -188)
-        
     }
 }
 
 #Preview {
-    ContentView()
+    WalletView()
 }
