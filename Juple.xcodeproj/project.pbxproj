@@ -16,6 +16,8 @@
 		23ACC0A12BB3F38800AAA5D8 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ACC0A02BB3F38800AAA5D8 /* APIManager.swift */; };
 		23ACC0A42BB3F5B000AAA5D8 /* CoinlistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ACC0A32BB3F5B000AAA5D8 /* CoinlistViewModel.swift */; };
 		23ACC0A62BB4026E00AAA5D8 /* Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ACC0A52BB4026E00AAA5D8 /* Market.swift */; };
+		23ACC0AA2BB55E2B00AAA5D8 /* SegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ACC0A92BB55E2B00AAA5D8 /* SegmentedView.swift */; };
+		23ACC0AD2BB55E6A00AAA5D8 /* SegmentTitle+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ACC0AC2BB55E6A00AAA5D8 /* SegmentTitle+Enum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		23ACC0A02BB3F38800AAA5D8 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		23ACC0A32BB3F5B000AAA5D8 /* CoinlistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinlistViewModel.swift; sourceTree = "<group>"; };
 		23ACC0A52BB4026E00AAA5D8 /* Market.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Market.swift; sourceTree = "<group>"; };
+		23ACC0A92BB55E2B00AAA5D8 /* SegmentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedView.swift; sourceTree = "<group>"; };
+		23ACC0AC2BB55E6A00AAA5D8 /* SegmentTitle+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentTitle+Enum.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +66,9 @@
 			isa = PBXGroup;
 			children = (
 				23ACC0892BAAD55900AAA5D8 /* JupleApp.swift */,
+				23ACC0AB2BB55E5400AAA5D8 /* Enum */,
 				23ACC09F2BB3F22700AAA5D8 /* Network */,
+				23ACC0A82BB55E0300AAA5D8 /* CustomView */,
 				23ACC0992BB3C52D00AAA5D8 /* Scene */,
 				23ACC08D2BAAD56D00AAA5D8 /* Assets.xcassets */,
 				23ACC08F2BAAD56D00AAA5D8 /* Preview Content */,
@@ -82,7 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				23ACC09E2BB3EFF100AAA5D8 /* Wallet */,
-				23ACC0A22BB3F59E00AAA5D8 /* Coinlist */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -92,6 +97,7 @@
 			children = (
 				23ACC08B2BAAD55900AAA5D8 /* WalletView.swift */,
 				23ACC09C2BB3EFEB00AAA5D8 /* WalletModel.swift */,
+				23ACC0A22BB3F59E00AAA5D8 /* Coinlist */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -120,6 +126,22 @@
 				23ACC0A52BB4026E00AAA5D8 /* Market.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		23ACC0A82BB55E0300AAA5D8 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				23ACC0A92BB55E2B00AAA5D8 /* SegmentedView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		23ACC0AB2BB55E5400AAA5D8 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				23ACC0AC2BB55E6A00AAA5D8 /* SegmentTitle+Enum.swift */,
+			);
+			path = Enum;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,6 +219,8 @@
 				23ACC0A62BB4026E00AAA5D8 /* Market.swift in Sources */,
 				23ACC0A12BB3F38800AAA5D8 /* APIManager.swift in Sources */,
 				23ACC0A42BB3F5B000AAA5D8 /* CoinlistViewModel.swift in Sources */,
+				23ACC0AD2BB55E6A00AAA5D8 /* SegmentTitle+Enum.swift in Sources */,
+				23ACC0AA2BB55E2B00AAA5D8 /* SegmentedView.swift in Sources */,
 				23ACC09D2BB3EFEB00AAA5D8 /* WalletModel.swift in Sources */,
 				23ACC09B2BB3C56800AAA5D8 /* CoinlistView.swift in Sources */,
 			);
