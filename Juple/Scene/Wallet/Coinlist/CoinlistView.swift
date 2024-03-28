@@ -13,7 +13,12 @@ struct CoinlistView: View {
     
     var body: some View {
         LazyVStack {
-            ForEach(viewModel.market, id: \.self) { item in
+            
+            SegmentedView(segments: [.krw, .btc, .usdt], selectedSegment: .krw) { selectedSeg in
+                viewModel.callRequest(selectedSeg)
+            }
+            
+            ForEach(viewModel.coins, id: \.self) { item in
                 
                 HStack {
                     
@@ -24,14 +29,13 @@ struct CoinlistView: View {
                     cells(.trailing, topTitle: item.market, bottomTitle: "+20%", color: .indigo)
                     
                 } //HStack
-                .padding(.horizontal, 25)
                 .padding(.vertical, 8)
                 
             } //ForEach
         } //LazyVStack
-//        .frame(width: .infinity, height: .infinity)
+        .padding(.horizontal, 25)
         .onAppear {
-            viewModel.callRequest()
+            viewModel.callRequest(.krw)
         }
         
     } //body
