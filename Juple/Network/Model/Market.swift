@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Market: Codable, Hashable {
+struct Market: Decodable, Hashable {
     let market: String
     let koreanName: String
     let englishName: String
