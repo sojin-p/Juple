@@ -17,6 +17,7 @@ struct CoinlistView: View {
             SegmentedView(segments: [.krw, .btc, .usdt], selectedSegment: .krw) { selectedSeg in
                 viewModel.callRequest(selectedSeg)
             }
+            .padding(.vertical, 8)
             
             ForEach(viewModel.coins, id: \.self) { item in
                 
@@ -26,7 +27,7 @@ struct CoinlistView: View {
                     
                     Spacer()
                     
-                    cells(.trailing, topTitle: item.market, bottomTitle: "+20%", color: .indigo)
+                    cells(.trailing, topTitle: "\(viewModel.tickers[item.market]?.tradePrice ?? 0.0)", bottomTitle: "\(viewModel.tickers[item.market]?.signedChangeRate ?? 0.0)%", color: .indigo)
                     
                 } //HStack
                 .padding(.vertical, 8)
