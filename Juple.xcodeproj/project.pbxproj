@@ -18,6 +18,8 @@
 		23ACC0A62BB4026E00AAA5D8 /* Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ACC0A52BB4026E00AAA5D8 /* Market.swift */; };
 		23ACC0AA2BB55E2B00AAA5D8 /* SegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ACC0A92BB55E2B00AAA5D8 /* SegmentedView.swift */; };
 		23ACC0AD2BB55E6A00AAA5D8 /* SegmentTitle+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ACC0AC2BB55E6A00AAA5D8 /* SegmentTitle+Enum.swift */; };
+		23ACC0AF2BBD516F00AAA5D8 /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ACC0AE2BBD516F00AAA5D8 /* WebSocketManager.swift */; };
+		23ACC0B12BBD516F00AAA5D8 /* Ticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ACC0B02BBD516F00AAA5D8 /* Ticker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		23ACC0A52BB4026E00AAA5D8 /* Market.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Market.swift; sourceTree = "<group>"; };
 		23ACC0A92BB55E2B00AAA5D8 /* SegmentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedView.swift; sourceTree = "<group>"; };
 		23ACC0AC2BB55E6A00AAA5D8 /* SegmentTitle+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentTitle+Enum.swift"; sourceTree = "<group>"; };
+		23ACC0AE2BBD516F00AAA5D8 /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
+		23ACC0B02BBD516F00AAA5D8 /* Ticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,7 @@
 			children = (
 				23ACC0A72BB4028400AAA5D8 /* Model */,
 				23ACC0A02BB3F38800AAA5D8 /* APIManager.swift */,
+				23ACC0AE2BBD516F00AAA5D8 /* WebSocketManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -124,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				23ACC0A52BB4026E00AAA5D8 /* Market.swift */,
+				23ACC0B02BBD516F00AAA5D8 /* Ticker.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -215,10 +221,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				23ACC08C2BAAD55900AAA5D8 /* WalletView.swift in Sources */,
+				23ACC0AF2BBD516F00AAA5D8 /* WebSocketManager.swift in Sources */,
 				23ACC08A2BAAD55900AAA5D8 /* JupleApp.swift in Sources */,
 				23ACC0A62BB4026E00AAA5D8 /* Market.swift in Sources */,
 				23ACC0A12BB3F38800AAA5D8 /* APIManager.swift in Sources */,
 				23ACC0A42BB3F5B000AAA5D8 /* CoinlistViewModel.swift in Sources */,
+				23ACC0B12BBD516F00AAA5D8 /* Ticker.swift in Sources */,
 				23ACC0AD2BB55E6A00AAA5D8 /* SegmentTitle+Enum.swift in Sources */,
 				23ACC0AA2BB55E2B00AAA5D8 /* SegmentedView.swift in Sources */,
 				23ACC09D2BB3EFEB00AAA5D8 /* WalletModel.swift in Sources */,
