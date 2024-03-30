@@ -20,18 +20,21 @@ struct CoinlistView: View {
             .padding(.vertical, 8)
             
             ForEach(viewModel.coins, id: \.self) { item in
-                
-                HStack {
-                    
-                    cells(.leading, topTitle: item.koreanName, bottomTitle: item.englishName, color: .gray)
-                    
-                    Spacer()
-                    
-                    cells(.trailing, topTitle: "\(viewModel.tickers[item.market]?.tradePrice ?? 0.0)", bottomTitle: "\(viewModel.tickers[item.market]?.signedChangeRate ?? 0.0)%", color: .indigo)
-                    
-                } //HStack
-                .padding(.vertical, 8)
-                
+                NavigationLink(value: item) {
+                    HStack {
+                        cells(.leading,
+                              topTitle: item.koreanName,
+                              bottomTitle: item.englishName,
+                              color: .gray)
+                        Spacer()
+                        cells(.trailing,
+                              topTitle: viewModel.getTradePrice(item.market),
+                              bottomTitle: viewModel.getSignedChangeRateToString(item.market),
+                              color: colorForNumber(viewModel.getSignedChangeRate(item.market)))
+                    } //HStack
+                    .padding(.vertical, 8)
+                    .buttonStyle(.plain)
+                } //NavigationLink
             } //ForEach
         } //LazyVStack
         .padding(.horizontal, 25)
@@ -50,6 +53,10 @@ struct CoinlistView: View {
                 .font(.caption)
                 .foregroundStyle(color)
         } //VStack
+    }
+    
+    func colorForNumber(_ num: Double) -> Color {
+        return num >= 0 ? .red : .indigo
     }
     
 }

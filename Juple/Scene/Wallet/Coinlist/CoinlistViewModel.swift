@@ -12,7 +12,7 @@ final class CoinlistViewModel: ObservableObject {
     
     @Published var coins: [Market] = []
     
-    @Published var tickers: [String: Ticker] = [:]
+    @Published var tickerItems: [String: TickerItem] = [:]
     
     private var cancellable = Set<AnyCancellable>()
     
@@ -49,7 +49,9 @@ final class CoinlistViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] ticker in
                 guard let self else { return }
-                self.tickers[ticker.code] = ticker
+                self.tickerItems[ticker.code] = TickerItem(
+                    tradePrice: ticker.tradePrice.toCommaString(),
+                    signedChangeRate: roundToTwoDigits(ticker.signedChangeRate))
             }
             .store(in: &cancellable)
         
@@ -58,6 +60,26 @@ final class CoinlistViewModel: ObservableObject {
     func closeWebSocket() {
         print(#function)
         WebSocketManager.shared.closeWebSocket()
+    }
+    
+    func roundToTwoDigits(_ num: Double) -> Double {
+        let movedDemicalPoint = num * 100
+        return (movedDemicalPoint * 100).rounded() / 100
+    }
+    
+    func getTradePrice(_ market: String) -> String {
+        guard let tradePrice = self.tickerItems[market]?.tradePrice else { return "0" }
+        return tradePrice
+    }
+    
+    func getSignedChangeRate(_ market: String) -> Double {
+        guard let signedChangeRate = self.tickerItems[market]?.signedChangeRate else { return 0.0 }
+        return signedChangeRate
+    }
+    
+    func getSignedChangeRateToString(_ market: String) -> String {
+        guard let signedChangeRate = self.tickerItems[market]?.signedChangeRateString else { return "0%" }
+        return signedChangeRate
     }
     
 }
