@@ -12,6 +12,7 @@ struct CoinlistView: View {
     @StateObject var viewModel = CoinlistViewModel()
     
     var body: some View {
+        
         LazyVStack {
             
             SegmentedView(segments: [.krw, .btc, .usdt], selectedSegment: .krw) { selectedSeg in
@@ -41,6 +42,10 @@ struct CoinlistView: View {
         .onAppear {
             viewModel.callRequest(.krw)
         }
+        .navigationDestination(for: Market.self) { item in
+            OrderView(test: item)
+        }
+        .buttonStyle(.plain)
         
     } //body
     

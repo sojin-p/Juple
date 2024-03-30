@@ -17,16 +17,18 @@ struct WalletView: View {
     
     var body: some View {
         
-        VStack {
-            title("My Wallet", size: 30)
-            ScrollView() {
-                VStack {
-                    cardSpace()
+        NavigationStack {
+            VStack {
+                title("내 코인", size: 24)
+                ScrollView() {
                     VStack {
-                        title("title", size: 28)
-                        CoinlistView()
+                        cardSpace()
+                        VStack {
+                            title("거래소", size: 24)
+                            CoinlistView()
+                        }
+                        .offset(y: -365)
                     }
-                    .offset(y: -365)
                 }
             }
         }
