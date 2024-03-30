@@ -18,3 +18,12 @@ struct Ticker: Decodable, Hashable {
         case signedChangeRate = "signed_change_rate"
     }
 }
+
+struct TickerItem: Hashable {
+    let tradePrice: String
+    let signedChangeRate: Double
+    
+    var signedChangeRateString: String {
+        "\(self.signedChangeRate)%"
+    }
+}
