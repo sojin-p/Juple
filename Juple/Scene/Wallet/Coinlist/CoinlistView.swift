@@ -45,6 +45,9 @@ struct CoinlistView: View {
         .onAppear {
             viewModel.callRequest(selectedSegment)
         }
+        .onDisappear {
+            viewModel.closeWebSocket()
+        }
         .navigationDestination(for: Market.self) { item in
             OrderView(test: item)
         }
