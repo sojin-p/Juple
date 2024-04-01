@@ -32,7 +32,7 @@ struct CoinlistView: View {
                               color: .gray)
                         Spacer()
                         cells(.trailing,
-                              topTitle: viewModel.getTradePrice(item.market),
+                              topTitle: viewModel.getTradePrice(item.market, selectedSeg: selectedSegment),
                               bottomTitle: viewModel.getSignedChangeRateToString(item.market),
                               color: colorForNumber(viewModel.getSignedChangeRate(item.market)))
                     } //HStack

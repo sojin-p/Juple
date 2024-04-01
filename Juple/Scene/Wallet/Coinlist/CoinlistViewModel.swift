@@ -50,7 +50,7 @@ final class CoinlistViewModel: ObservableObject {
             .sink { [weak self] ticker in
                 guard let self else { return }
                 self.tickerItems[ticker.code] = TickerItem(
-                    tradePrice: ticker.tradePrice.toCommaString(),
+                    tradePrice: ticker.tradePrice,
                     signedChangeRate: roundToTwoDigits(ticker.signedChangeRate))
             }
             .store(in: &cancellable)
@@ -67,9 +67,18 @@ final class CoinlistViewModel: ObservableObject {
         return (movedDemicalPoint * 100).rounded() / 100
     }
     
-    func getTradePrice(_ market: String) -> String {
+    func getTradePrice(_ market: String, selectedSeg: SegmentTitle) -> String {
+        
         guard let tradePrice = self.tickerItems[market]?.tradePrice else { return "0" }
-        return tradePrice
+        
+        switch selectedSeg {
+        case .krw, .usdt:
+            return tradePrice.toCommaString()
+        case .btc:
+            let formattedTradePrice = String(format: "%.8f", tradePrice)
+            return formattedTradePrice
+        }
+        
     }
     
     func getSignedChangeRate(_ market: String) -> Double {

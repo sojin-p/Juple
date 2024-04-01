@@ -20,7 +20,7 @@ struct Ticker: Decodable, Hashable {
 }
 
 struct TickerItem: Hashable {
-    let tradePrice: String
+    let tradePrice: Double
     let signedChangeRate: Double
     
     var signedChangeRateString: String {
