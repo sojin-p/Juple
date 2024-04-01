@@ -11,12 +11,15 @@ struct CoinlistView: View {
     
     @StateObject var viewModel = CoinlistViewModel()
     
+    @State var selectedSegment: SegmentTitle = .krw
+    
     var body: some View {
         
         LazyVStack {
             
-            SegmentedView(segments: [.krw, .btc, .usdt], selectedSegment: .krw) { selectedSeg in
+            SegmentedView(segments: [.krw, .btc, .usdt], selectedSegment: selectedSegment) { selectedSeg in
                 viewModel.callRequest(selectedSeg)
+                selectedSegment = selectedSeg
             }
             .padding(.vertical, 8)
             
@@ -40,7 +43,7 @@ struct CoinlistView: View {
         } //LazyVStack
         .padding(.horizontal, 25)
         .onAppear {
-            viewModel.callRequest(.krw)
+            viewModel.callRequest(selectedSegment)
         }
         .navigationDestination(for: Market.self) { item in
             OrderView(test: item)
