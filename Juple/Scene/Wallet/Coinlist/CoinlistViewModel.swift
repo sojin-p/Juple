@@ -15,6 +15,7 @@ final class CoinlistViewModel: ObservableObject {
     @Published var filteredCoins: [Market] = []
     
     @Published private var tickerItems: [String: TickerItem] = [:]
+    @Published var selectedSegment: CurrencyType = .krw
     
     private var cancellable = Set<AnyCancellable>()
     

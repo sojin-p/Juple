@@ -11,18 +11,16 @@ struct CoinlistView: View {
     
     @StateObject var viewModel = CoinlistViewModel()
     
-    @State var selectedSegment: CurrencyType = .krw
-    
     var body: some View {
         
         LazyVStack {
             
             SegmentedView(
                 segments: [CurrencyType.krw, CurrencyType.btc, CurrencyType.usdt],
-                selectedSegment: selectedSegment,
+                selectedSegment: viewModel.selectedSegment,
                 selectionChanged: {  selectedSeg in
                     viewModel.filteredCoins(selectedSeg)
-                    selectedSegment = selectedSeg
+                    viewModel.selectedSegment = selectedSeg
                 })
             
             .padding(.vertical, 8)
@@ -36,7 +34,7 @@ struct CoinlistView: View {
                               color: .gray)
                         Spacer()
                         cells(.trailing,
-                              topTitle: viewModel.getTradePrice(item.market, selectedSeg: selectedSegment),
+                              topTitle: viewModel.getTradePrice(item.market, selectedSeg: viewModel.selectedSegment),
                               bottomTitle: viewModel.getSignedChangeRateToString(item.market),
                               color: viewModel.getSignedChangeRate(item.market).signedColor())
                     } //HStack
