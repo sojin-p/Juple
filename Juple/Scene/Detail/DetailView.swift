@@ -9,6 +9,8 @@ import SwiftUI
 
 struct DetailView: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     let market: Market
     
     let selectedSegment: DetailViewType = .chart
@@ -25,6 +27,24 @@ struct DetailView: View {
                 .padding(.vertical, 12)
         }
         .navigationTitle("\(market.koreanName)")
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItemGroup(placement: .topBarLeading) {
+                Button {
+                    dismiss.callAsFunction()
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(.cyan)
+                            .opacity(0.5)
+                            .frame(width: 42, height: 42)
+                        Image(systemName: "arrow.backward")
+                            .foregroundStyle(.black)
+                    } //ZStack
+                } //Button Label
+            } //ToolbarItemGroup
+        } //toolbar
+        
     }
     
 }
