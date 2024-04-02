@@ -12,49 +12,29 @@ final class CoinlistViewModel: ObservableObject {
     
     @Published var coins: [Market] = []
     
-    @Published var tickerItems: [String: TickerItem] = [:]
+    @Published var filteredCoins: [Market] = []
+    
+    @Published private var tickerItems: [String: TickerItem] = [:]
     
     private var cancellable = Set<AnyCancellable>()
     
-    func callRequest(_ selectedSeg: SegmentTitle) {
+    func callRequest() {
         
         APIManager.fetchAllmarket { [weak self] data in
             
             guard let self else { return }
             
-            switch selectedSeg {
-            case .krw:
-                self.coins = data.filter { $0.market.hasPrefix(SegmentTitle.krw.rawValue) }
-            case .btc:
-                self.coins = data.filter { $0.market.hasPrefix(SegmentTitle.btc.rawValue) }
-            case .usdt:
-                self.coins = data.filter { $0.market.hasPrefix(SegmentTitle.usdt.rawValue) }
-            }
+            self.coins = data
             
-            self.fetchTickers()
+            filteredCoins(.krw)
             
         }
         
     }
     
-    func fetchTickers() {
-        
-        let codes = coins.map { $0.market }
-        
-        WebSocketManager.shared.openWebSocket()
-        
-        WebSocketManager.shared.send(codes)
-        
-        WebSocketManager.shared.tickerSubject
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] ticker in
-                guard let self else { return }
-                self.tickerItems[ticker.code] = TickerItem(
-                    tradePrice: ticker.tradePrice,
-                    signedChangeRate: roundToTwoDigits(ticker.signedChangeRate))
-            }
-            .store(in: &cancellable)
-        
+    func filteredCoins(_ selectedSeg: CurrencyType) {
+        filteredCoins = coins.filter { $0.market.hasPrefix(selectedSeg.rawValue) }
+        fetchTickers()
     }
     
     func closeWebSocket() {
@@ -62,12 +42,7 @@ final class CoinlistViewModel: ObservableObject {
         WebSocketManager.shared.closeWebSocket()
     }
     
-    func roundToTwoDigits(_ num: Double) -> Double {
-        let movedDemicalPoint = num * 100
-        return (movedDemicalPoint * 100).rounded() / 100
-    }
-    
-    func getTradePrice(_ market: String, selectedSeg: SegmentTitle) -> String {
+    func getTradePrice(_ market: String, selectedSeg: CurrencyType) -> String {
         
         guard let tradePrice = self.tickerItems[market]?.tradePrice else { return "0" }
         
@@ -89,6 +64,31 @@ final class CoinlistViewModel: ObservableObject {
     func getSignedChangeRateToString(_ market: String) -> String {
         guard let signedChangeRate = self.tickerItems[market]?.signedChangeRateString else { return "0%" }
         return signedChangeRate
+    }
+    
+    private func fetchTickers() {
+        
+        let codes = coins.map { $0.market }
+        
+        WebSocketManager.shared.openWebSocket()
+        
+        WebSocketManager.shared.send(codes)
+        
+        WebSocketManager.shared.tickerSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] ticker in
+                guard let self else { return }
+                self.tickerItems[ticker.code] = TickerItem(
+                    tradePrice: ticker.tradePrice,
+                    signedChangeRate: roundToTwoDigits(ticker.signedChangeRate))
+            }
+            .store(in: &cancellable)
+        
+    }
+    
+    private func roundToTwoDigits(_ num: Double) -> Double {
+        let movedDemicalPoint = num * 100
+        return (movedDemicalPoint * 100).rounded() / 100
     }
     
 }

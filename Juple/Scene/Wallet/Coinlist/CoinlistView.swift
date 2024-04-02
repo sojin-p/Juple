@@ -21,13 +21,13 @@ struct CoinlistView: View {
                 segments: [CurrencyType.krw, CurrencyType.btc, CurrencyType.usdt],
                 selectedSegment: selectedSegment,
                 selectionChanged: {  selectedSeg in
-                    viewModel.callRequest(selectedSeg)
+                    viewModel.filteredCoins(selectedSeg)
                     selectedSegment = selectedSeg
                 })
             
             .padding(.vertical, 8)
             
-            ForEach(viewModel.coins, id: \.self) { item in
+            ForEach(viewModel.filteredCoins, id: \.self) { item in
                 NavigationLink(value: item) {
                     HStack {
                         cells(.leading,
@@ -47,13 +47,13 @@ struct CoinlistView: View {
         } //LazyVStack
         .padding(.horizontal, 25)
         .onAppear {
-            viewModel.callRequest(selectedSegment)
+            viewModel.callRequest()
         }
         .onDisappear {
             viewModel.closeWebSocket()
         }
-        .navigationDestination(for: Market.self) { item in
-            OrderView(test: item)
+        .navigationDestination(for: Market.self) { market in
+            DetailView(market: market)
         }
         .buttonStyle(.plain)
         
