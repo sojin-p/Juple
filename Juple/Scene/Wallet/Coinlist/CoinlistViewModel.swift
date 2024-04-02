@@ -10,12 +10,13 @@ import Combine
 
 final class CoinlistViewModel: ObservableObject {
     
-    @Published var coins: [Market] = []
-    
     @Published var filteredCoins: [Market] = []
     
-    @Published private var tickerItems: [String: TickerItem] = [:]
     @Published var selectedSegment: CurrencyType = .krw
+    
+    @Published var tickerItems: [String: TickerItem] = [:]
+    
+    @Published private var coins: [Market] = []
     
     private var cancellable = Set<AnyCancellable>()
     
