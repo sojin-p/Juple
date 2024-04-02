@@ -38,7 +38,7 @@ struct CoinlistView: View {
                         cells(.trailing,
                               topTitle: viewModel.getTradePrice(item.market, selectedSeg: selectedSegment),
                               bottomTitle: viewModel.getSignedChangeRateToString(item.market),
-                              color: colorForNumber(viewModel.getSignedChangeRate(item.market)))
+                              color: viewModel.getSignedChangeRate(item.market).signedColor())
                     } //HStack
                     .padding(.vertical, 8)
                     .buttonStyle(.plain)
@@ -68,10 +68,6 @@ struct CoinlistView: View {
                 .font(.caption)
                 .foregroundStyle(color)
         } //VStack
-    }
-    
-    func colorForNumber(_ num: Double) -> Color {
-        return num >= 0 ? .red : .indigo
     }
     
 }
