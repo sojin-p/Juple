@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct SegmentedView: View {
+struct SegmentedView<T: RawRepresentable>: View where T: Hashable, T.RawValue == String {
     
-    let segments: [SegmentTitle]
+    let segments: [T]
     
-    @State var selectedSegment: SegmentTitle
+    @State var selectedSegment: T
     
     @Namespace var name
     
-    let selectionChanged: (SegmentTitle) -> Void
+    let selectionChanged: (T) -> Void
     
     var body: some View {
         
@@ -34,7 +34,7 @@ struct SegmentedView: View {
         }
     } //body
     
-    func segmentsStyle(_ segment: String, basicColor: Color, selectedColor: Color) -> some View {
+    func segmentsStyle(_ segment: T.RawValue, basicColor: Color, selectedColor: Color) -> some View {
         VStack {
             Text(segment)
                 .foregroundColor(selectedSegment.rawValue == segment ? selectedColor : Color(uiColor: .systemGray))

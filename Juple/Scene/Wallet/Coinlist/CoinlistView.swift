@@ -11,16 +11,20 @@ struct CoinlistView: View {
     
     @StateObject var viewModel = CoinlistViewModel()
     
-    @State var selectedSegment: SegmentTitle = .krw
+    @State var selectedSegment: CurrencyType = .krw
     
     var body: some View {
         
         LazyVStack {
             
-            SegmentedView(segments: [.krw, .btc, .usdt], selectedSegment: selectedSegment) { selectedSeg in
-                viewModel.callRequest(selectedSeg)
-                selectedSegment = selectedSeg
-            }
+            SegmentedView(
+                segments: [CurrencyType.krw, CurrencyType.btc, CurrencyType.usdt],
+                selectedSegment: selectedSegment,
+                selectionChanged: {  selectedSeg in
+                    viewModel.callRequest(selectedSeg)
+                    selectedSegment = selectedSeg
+                })
+            
             .padding(.vertical, 8)
             
             ForEach(viewModel.coins, id: \.self) { item in
