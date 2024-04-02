@@ -43,9 +43,9 @@ final class CoinlistViewModel: ObservableObject {
         WebSocketManager.shared.closeWebSocket()
     }
     
-    func getTradePrice(_ market: String, selectedSeg: CurrencyType) -> String {
-        
-        guard let tradePrice = self.tickerItems[market]?.tradePrice else { return "0" }
+    func getTradePrice(_ marketCode: String, selectedSeg: CurrencyType) -> String {
+
+        guard let tradePrice = self.tickerItems[marketCode]?.tradePrice else { return "불러오는 중" }
         
         switch selectedSeg {
         case .krw, .usdt:
@@ -63,7 +63,7 @@ final class CoinlistViewModel: ObservableObject {
     }
     
     func getSignedChangeRateToString(_ market: String) -> String {
-        guard let signedChangeRate = self.tickerItems[market]?.signedChangeRateString else { return "0%" }
+        guard let signedChangeRate = self.tickerItems[market]?.signedChangeRateString else { return "..." }
         return signedChangeRate
     }
     
