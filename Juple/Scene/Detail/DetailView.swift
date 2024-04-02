@@ -9,6 +9,8 @@ import SwiftUI
 
 struct DetailView: View {
     
+    @StateObject var viewModel = CoinlistViewModel()
+    
     @Environment(\.dismiss) var dismiss
     
     let market: Market
@@ -19,12 +21,28 @@ struct DetailView: View {
         
         VStack {
             
+            VStack(alignment: .center) {
+                Text("\(viewModel.getTradePrice(market.market, selectedSeg: viewModel.selectedSegment))")
+                    .font(.system(size: 32, weight: .semibold))
+                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 4, trailing: 0))
+                ZStack {
+                    Capsule()
+                        .fill(.yellow)
+                        .frame(width: 76, height: 32)
+                    Text(viewModel.getSignedChangeRateToString(market.market))
+                        .foregroundStyle(viewModel.getSignedChangeRate(market.market).signedColor())
+                        .font(.system(size: 16))
+                } //ZStack
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 0))
+            } //VStack
+            
             SegmentedView(
                 segments: [DetailViewType.chart, DetailViewType.order],
                 selectedSegment: selectedSegment) { seg in
                     
                 }
                 .padding(.vertical, 12)
+            Spacer()
         }
         .navigationTitle("\(market.koreanName)")
         .navigationBarBackButtonHidden()
