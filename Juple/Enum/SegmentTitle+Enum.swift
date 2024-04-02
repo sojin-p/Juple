@@ -7,9 +7,13 @@
 
 import Foundation
 
-enum SegmentTitle: String, CaseIterable {
-    //CoinFilter
+enum CurrencyType: String, CaseIterable, Hashable {
     case krw = "KRW"
     case btc = "BTC"
     case usdt = "USDT"
+}
+
+enum DetailViewType: String, CaseIterable, Hashable {
+    case order = "주문"
+    case chart = "차트"
 }
