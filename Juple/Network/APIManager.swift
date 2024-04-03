@@ -11,7 +11,7 @@ struct APIManager {
     
     private init() { }
     
-    static func fetchAllmarket(completion: @escaping ([Market])-> Void ) {
+    static func fetchAllmarket(completion: @escaping ([Market]) -> Void ) {
         
         guard let url = URL(string: "https://api.upbit.com/v1/market/all") else {
             print("url 에러")
@@ -31,6 +31,35 @@ struct APIManager {
                 DispatchQueue.main.async {
                     completion(decodedData)
                 }
+            } catch {
+                print(error)
+            }
+            
+        }.resume()
+        
+    }
+    
+    static func fetchCandle(_ marketCode: String, completion: @escaping ([Candle]) -> Void) {
+        
+        guard let url = URL(string: "https://api.upbit.com/v1/candles/minutes/30?market=\(marketCode)&count=36") else {
+            print("url 에러")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            
+            guard let data else {
+                print("데이터 응답 없음")
+                return
+            }
+            print("======fetchCandle")
+            do {
+                let decodedData = try JSONDecoder().decode([Candle].self, from: data)
+                
+                DispatchQueue.main.async {
+                    completion(decodedData)
+                }
+                
             } catch {
                 print(error)
             }
