@@ -20,7 +20,17 @@ final class CoinlistViewModel: ObservableObject {
     
     private var cancellable = Set<AnyCancellable>()
     
-    func callRequest() {
+    var webSocketIsOpen: Bool = false {
+        didSet {
+            if webSocketIsOpen {
+                fetchTickers()
+            } else {
+                closeWebSocket()
+            }
+        }
+    }
+    
+    init() {
         
         APIManager.fetchAllmarket { [weak self] data in
             
@@ -30,18 +40,14 @@ final class CoinlistViewModel: ObservableObject {
             
             filteredCoins(.krw)
             
+            webSocketIsOpen = true
+            
         }
         
     }
     
     func filteredCoins(_ selectedSeg: CurrencyType) {
         filteredCoins = coins.filter { $0.market.hasPrefix(selectedSeg.rawValue) }
-        fetchTickers()
-    }
-    
-    func closeWebSocket() {
-        print(#function)
-        WebSocketManager.shared.closeWebSocket()
     }
     
     func getTradePrice(_ marketCode: String, selectedSeg: CurrencyType) -> String {
@@ -83,9 +89,15 @@ final class CoinlistViewModel: ObservableObject {
                 self.tickerItems[ticker.code] = TickerItem(
                     tradePrice: ticker.tradePrice,
                     signedChangeRate: roundToTwoDigits(ticker.signedChangeRate))
+                
             }
             .store(in: &cancellable)
         
+    }
+    
+    private func closeWebSocket() {
+        print(#function)
+        WebSocketManager.shared.closeWebSocket()
     }
     
     private func roundToTwoDigits(_ num: Double) -> Double {

@@ -44,14 +44,9 @@ struct CoinlistView: View {
             } //ForEach
         } //LazyVStack
         .padding(.horizontal, 25)
-        .onAppear {
-            viewModel.callRequest()
-        }
-        .onDisappear {
-            viewModel.closeWebSocket()
-        }
         .navigationDestination(for: Market.self) { market in
             DetailView(market: market)
+                .environmentObject(viewModel)
         }
         .buttonStyle(.plain)
         

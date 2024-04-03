@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailView: View {
     
-    @StateObject var viewModel = CoinlistViewModel()
+    @EnvironmentObject var viewModel: CoinlistViewModel
     
     @Environment(\.dismiss) var dismiss
     
