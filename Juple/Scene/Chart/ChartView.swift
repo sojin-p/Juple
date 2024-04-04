@@ -27,6 +27,20 @@ struct ChartView: View {
                 } //ForEach
             } //Chart
             .chartYScale(domain: viewModel.getChartDomain()) // y 범위
+            .chartYAxis {
+                AxisMarks(values: .automatic(desiredCount: 5)) {
+                    AxisValueLabel()
+                    AxisGridLine()
+                        .foregroundStyle(.gray.opacity(0.2))
+                }
+            }
+            .chartXAxis {
+                AxisMarks(values: .automatic(desiredCount: 4)) {
+                    AxisValueLabel()
+                    AxisGridLine()
+                        .foregroundStyle(.gray.opacity(0.2))
+                }
+            }
             .chartOverlay { proxy in
                 
                 let highPos = proxy.position(for: (viewModel.getHighXPosition(), viewModel.highTrade))
