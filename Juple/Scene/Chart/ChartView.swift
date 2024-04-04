@@ -27,6 +27,34 @@ struct ChartView: View {
                 } //ForEach
             } //Chart
             .chartYScale(domain: viewModel.getChartDomain()) // y 범위
+            .chartOverlay { proxy in
+                
+                let highPos = proxy.position(for: (viewModel.getHighXPosition(), viewModel.highTrade))
+                let lowPos = proxy.position(for: (viewModel.getLowXPosition(), viewModel.lowTrade))
+                
+                Group {
+                    Circle()
+                        .frame(width: 6, height: 6)
+                    Text("최고 \(viewModel.highPrice.toCommaString())")
+                        .offset(CGSize(width: 0, height: -18))
+                        .shadow(color: .white, radius: 2)
+                        .font(.caption)
+                }
+                .position(highPos ?? .zero)
+                .foregroundColor(.red)
+                
+                Group {
+                    Circle()
+                        .frame(width: 6, height: 6)
+                    Text("최저 \(viewModel.lowPrice.toCommaString())")
+                        .offset(CGSize(width: 0, height: 18))
+                        .shadow(color: .white, radius: 2)
+                        .font(.caption)
+                }
+                .position(lowPos ?? .zero)
+                .foregroundColor(.indigo)
+                
+            }
         } //VStack
         .task {
             print("task")

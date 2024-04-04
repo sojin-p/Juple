@@ -20,6 +20,14 @@ final class CoinlistViewModel: ObservableObject {
     
     @Published private var coins: [Market] = []
     
+    var highPrice: Double = 0
+    
+    var lowPrice: Double = 0
+    
+    var highTrade: Double = 0
+    
+    var lowTrade: Double = 0
+    
     private var cancellable = Set<AnyCancellable>()
     
     var webSocketIsOpen: Bool = false {
@@ -93,6 +101,37 @@ final class CoinlistViewModel: ObservableObject {
         return (min * 0.999)...(max * 1.001)
         
     }
+    
+    func getHighXPosition() -> Date {
+        
+        let candlesWithoutTrade = Array(self.candles.dropLast())
+        
+        if let candleOfMaxHighPrice = candlesWithoutTrade.max(by: { $0.highPrice < $1.highPrice }) {
+            
+            self.highPrice = candleOfMaxHighPrice.highPrice
+            self.highTrade = candleOfMaxHighPrice.tradePrice
+            
+            return candleOfMaxHighPrice.date.toDate() ?? Date()
+        }
+        
+        return Date()
+    }
+    
+    func getLowXPosition() -> Date {
+        
+        let candlesWithoutTrade = Array(self.candles.dropLast())
+        
+        if let candleOfMaxLowPrice = candlesWithoutTrade.max(by: { $0.lowPrice > $1.lowPrice }) {
+            
+            self.lowPrice = candleOfMaxLowPrice.lowPrice
+            self.lowTrade = candleOfMaxLowPrice.tradePrice
+            
+            return candleOfMaxLowPrice.date.toDate() ?? Date()
+        }
+        
+        return Date()
+    }
+    
     private func fetchTickers() {
         
         let codes = coins.map { $0.market }
