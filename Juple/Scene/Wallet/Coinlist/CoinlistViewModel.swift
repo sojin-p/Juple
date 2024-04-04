@@ -143,10 +143,16 @@ final class CoinlistViewModel: ObservableObject {
         WebSocketManager.shared.tickerSubject
             .receive(on: DispatchQueue.main)
             .sink { [weak self] ticker in
+                
                 guard let self else { return }
+                
                 self.tickerItems[ticker.code] = TickerItem(
                     tradePrice: ticker.tradePrice,
-                    signedChangeRate: roundToTwoDigits(ticker.signedChangeRate))
+                    signedChangeRate: roundToTwoDigits(ticker.signedChangeRate),
+                    highPrice: ticker.highPrice,
+                    lowPrice: ticker.lowPrice,
+                    tradeTimestamp: ticker.tradeTimestamp
+                )
                 
             }
             .store(in: &cancellable)
