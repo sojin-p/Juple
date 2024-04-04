@@ -85,6 +85,14 @@ final class CoinlistViewModel: ObservableObject {
         return signedChangeRate
     }
     
+    func getChartDomain() -> ClosedRange<Double> {
+        
+        guard let max = self.candles.map({ $0.tradePrice }).max() else { return 0...0 }
+        guard let min = self.candles.map({ $0.tradePrice }).min() else { return 0...0 }
+        
+        return (min * 0.999)...(max * 1.001)
+        
+    }
     private func fetchTickers() {
         
         let codes = coins.map { $0.market }

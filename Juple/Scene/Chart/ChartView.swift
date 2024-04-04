@@ -26,6 +26,7 @@ struct ChartView: View {
                     .interpolationMethod(.catmullRom)
                 } //ForEach
             } //Chart
+            .chartYScale(domain: viewModel.getChartDomain()) // y 범위
         } //VStack
         .task {
             print("task")
