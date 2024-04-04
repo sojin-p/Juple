@@ -16,6 +16,8 @@ final class CoinlistViewModel: ObservableObject {
     
     @Published var tickerItems: [String: TickerItem] = [:]
     
+    @Published var candles: [Candle] = []
+    
     @Published private var coins: [Market] = []
     
     private var cancellable = Set<AnyCancellable>()
@@ -42,6 +44,15 @@ final class CoinlistViewModel: ObservableObject {
             
             webSocketIsOpen = true
             
+        }
+        
+    }
+    
+    func fetchCandle(_ marketCode: String) {
+        
+        APIManager.fetchCandle(marketCode) { [weak self] candle in
+            guard let self else { return }
+            self.candles = candle.reversed()
         }
         
     }
