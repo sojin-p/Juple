@@ -24,7 +24,7 @@ struct SegmentedView<T: RawRepresentable>: View where T: Hashable, T.RawValue ==
                 Button {
                     selectedSegment = seg
                 } label: {
-                    segmentsStyle(seg.rawValue, basicColor: .clear, selectedColor: .indigo)
+                    segmentsStyle(seg.rawValue, basicColor: .clear, selectedColor: .black)
                 }
                 .foregroundStyle(.black)
             } //forEach
@@ -37,7 +37,10 @@ struct SegmentedView<T: RawRepresentable>: View where T: Hashable, T.RawValue ==
     func segmentsStyle(_ segment: T.RawValue, basicColor: Color, selectedColor: Color) -> some View {
         VStack {
             Text(segment)
-                .foregroundColor(selectedSegment.rawValue == segment ? selectedColor : Color(uiColor: .systemGray))
+                .foregroundColor(selectedSegment.rawValue == segment ? selectedColor : .gray)
+                .font(.system(
+                    size: 18,
+                    weight: selectedSegment.rawValue == segment ? .semibold : .regular))
             ZStack {
                 Capsule()
                     .fill(basicColor)
@@ -45,7 +48,7 @@ struct SegmentedView<T: RawRepresentable>: View where T: Hashable, T.RawValue ==
                 if selectedSegment.rawValue == segment {
                     Capsule()
                         .fill(selectedColor)
-                        .frame(height: 3)
+                        .frame(height: 2.5)
                         .matchedGeometryEffect(id: "Tab", in: name)
                 }
             } //ZStack
