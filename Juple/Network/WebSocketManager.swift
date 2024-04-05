@@ -24,6 +24,8 @@ final class WebSocketManager: NSObject {
     
     var tickerSubject = PassthroughSubject<Ticker, Never>()
     
+    var orderBookSubject = PassthroughSubject<OrderBookWS, Never>()
+    
     func openWebSocket() {
         
         if let url = URL(string: "wss://api.upbit.com/websocket/v1") {
@@ -54,7 +56,7 @@ final class WebSocketManager: NSObject {
     
     func send(_ marketCode: [String]) {
         let string = """
-       [{"ticket":"test"},{"type":"ticker","codes":\(marketCode)}]
+       [{"ticket": "test"}, {"type": "ticker","codes": \(marketCode)}, {"ticket": "test"}, {"type": "orderbook", "codes": \(marketCode)}]
        """
         
         webSocket?.send(.string(string), completionHandler: { error in
@@ -72,21 +74,7 @@ final class WebSocketManager: NSObject {
                 case .success(let success):
                     //print("receive 성공, \(success)")
                     
-                    switch success {
-                    case .data(let data):
-                        
-                        do {
-                            let decodedData = try JSONDecoder().decode(Ticker.self, from: data)
-//                            print("== receive \(decodedData)")
-                            self?.tickerSubject.send(decodedData)
-                            
-                        } catch {
-                            print("디코딩 실패 \(error)")
-                        }
-                        
-                    case .string(let string): print(string)
-                    @unknown default: print("unknown default")
-                    }
+                    self?.handleReceivedMessage(success)
                     
                 case .failure(let success):
                     print("receive 실패, \(success)")
@@ -97,6 +85,58 @@ final class WebSocketManager: NSObject {
         }
         
     } //receive
+    
+    
+    private func handleReceivedMessage(_ message: URLSessionWebSocketTask.Message) {
+        
+        switch message {
+        case .data(let data):
+            
+            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                print("Failed to parse JSON data")
+                return
+            }
+            
+            if let type = json["type"] as? String {
+                
+                switch type {
+                case "ticker":
+                    
+                    do {
+                        let decodedData = try JSONDecoder().decode(Ticker.self, from: data)
+//                            print("== receive \(decodedData)")
+                        self.tickerSubject.send(decodedData)
+                        
+                    } catch {
+                        print("ticker 디코딩 실패 \(error)")
+                    }
+                    
+                case "orderbook":
+                    
+                    do {
+                        let decodedData = try JSONDecoder().decode(OrderBookWS.self, from: data)
+//                            print("== receive \(decodedData)")
+                        self.orderBookSubject.send(decodedData)
+                        
+                    } catch {
+                        print("OrderBookWS 디코딩 실패 \(error)")
+                    }
+                    
+                default:
+                    print("Unknown message type: \(type)")
+                }
+                
+            } else {
+                print("Missing 'type' field in received message")
+            }
+            
+        case .string(let string):
+            print("Received string message: \(string)")
+            
+        @unknown default:
+            print("Received unknown message type")
+        }
+    }
     
     private func ping() {
         
