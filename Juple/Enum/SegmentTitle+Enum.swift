@@ -14,6 +14,6 @@ enum CurrencyType: String, CaseIterable, Hashable {
 }
 
 enum DetailViewType: String, CaseIterable, Hashable {
-    case order = "주문"
+    case order = "호가"
     case chart = "차트"
 }
