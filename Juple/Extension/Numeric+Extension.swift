@@ -21,7 +21,7 @@ extension Numeric {
 extension Double {
     
     func signedColor() -> Color {
-        return self >= 0 ? .red : .indigo
+        return self >= 0 ? .positiveRed : .negativeBlue
     }
     
 }
