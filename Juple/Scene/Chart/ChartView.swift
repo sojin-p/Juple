@@ -14,6 +14,18 @@ struct ChartView: View {
     
     let market: Market
     
+    let chartGradient = LinearGradient(
+        gradient: Gradient (
+            colors: [
+                .orange.opacity(0.4),
+                .orange.opacity(0.1),
+                .clear
+            ]
+        ),
+        startPoint: .top,
+        endPoint: .bottomTrailing
+    )
+    
     var body: some View {
         
         VStack {
@@ -23,9 +35,17 @@ struct ChartView: View {
                         x: .value("Time", item.date.toDate() ?? Date()),
                         y: .value("Price", item.tradePrice)
                     )
-                    .interpolationMethod(.catmullRom)
+//                    .interpolationMethod(.catmullRom)
+                    AreaMark (
+                        x: .value("Time", item.date.toDate() ?? Date()),
+                        y: .value("Price", item.tradePrice)
+                    )
+                    .foregroundStyle(chartGradient)
+                    .alignsMarkStylesWithPlotArea()
+                    
                 } //ForEach
             } //Chart
+            .foregroundStyle(.orange)
             .chartYScale(domain: viewModel.getChartDomain()) // y 범위
             .chartYAxis {
                 AxisMarks(values: .automatic(desiredCount: 5)) {
@@ -51,31 +71,30 @@ struct ChartView: View {
                         .frame(width: 6, height: 6)
                     Text("최고 \(viewModel.highPrice.toCommaString())")
                         .offset(CGSize(width: 0, height: -18))
-                        .shadow(color: .white, radius: 2)
                         .font(.caption)
+                        .fontWeight(.semibold)
                 }
                 .position(highPos ?? .zero)
-                .foregroundColor(.red)
+                .foregroundColor(.positiveRed)
                 
                 Group {
                     Circle()
                         .frame(width: 6, height: 6)
                     Text("최저 \(viewModel.lowPrice.toCommaString())")
                         .offset(CGSize(width: 0, height: 18))
-                        .shadow(color: .white, radius: 2)
                         .font(.caption)
+                        .fontWeight(.semibold)
                 }
                 .position(lowPos ?? .zero)
-                .foregroundColor(.indigo)
+                .foregroundColor(.negativeBlue)
                 
-            }
+            } //chartOverlay
         } //VStack
         .task {
             print("task")
             viewModel.fetchCandle(market.market)
         }
-//        .frame(width: .infinity, height: .infinity)
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 20))
+        .padding(EdgeInsets(top: 10, leading: 0, bottom: 12, trailing: 16))
         
     }
     
