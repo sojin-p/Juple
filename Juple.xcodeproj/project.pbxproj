@@ -12,6 +12,8 @@
 		237F63D72BB814B300BA815D /* Numeric+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237F63D62BB814B300BA815D /* Numeric+Extension.swift */; };
 		237F63DA2BBA6CC000BA815D /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237F63D92BBA6CC000BA815D /* ChartView.swift */; };
 		237F63DD2BBA6CE900BA815D /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237F63DC2BBA6CE900BA815D /* DetailView.swift */; };
+		23884C332BD6C43C00B74846 /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23884C322BD6C43C00B74846 /* OrderViewModel.swift */; };
+		23884C352BD6C4D200B74846 /* OrderBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23884C342BD6C4D200B74846 /* OrderBook.swift */; };
 		23ACC08A2BAAD55900AAA5D8 /* JupleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ACC0892BAAD55900AAA5D8 /* JupleApp.swift */; };
 		23ACC08C2BAAD55900AAA5D8 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ACC08B2BAAD55900AAA5D8 /* WalletView.swift */; };
 		23ACC08E2BAAD56D00AAA5D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23ACC08D2BAAD56D00AAA5D8 /* Assets.xcassets */; };
@@ -34,6 +36,8 @@
 		237F63D62BB814B300BA815D /* Numeric+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Numeric+Extension.swift"; sourceTree = "<group>"; };
 		237F63D92BBA6CC000BA815D /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		237F63DC2BBA6CE900BA815D /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		23884C322BD6C43C00B74846 /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
+		23884C342BD6C4D200B74846 /* OrderBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBook.swift; sourceTree = "<group>"; };
 		23ACC0862BAAD55900AAA5D8 /* Juple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Juple.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23ACC0892BAAD55900AAA5D8 /* JupleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JupleApp.swift; sourceTree = "<group>"; };
 		23ACC08B2BAAD55900AAA5D8 /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
@@ -66,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				237F63D32BB80D1D00BA815D /* OrderView.swift */,
+				23884C322BD6C43C00B74846 /* OrderViewModel.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -180,6 +185,7 @@
 				23ACC0A52BB4026E00AAA5D8 /* Market.swift */,
 				23ACC0B02BBD516F00AAA5D8 /* Ticker.swift */,
 				2359FDD52BBD3418009B15D3 /* Candle.swift */,
+				23884C342BD6C4D200B74846 /* OrderBook.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -279,8 +285,10 @@
 				23ACC08A2BAAD55900AAA5D8 /* JupleApp.swift in Sources */,
 				237F63DA2BBA6CC000BA815D /* ChartView.swift in Sources */,
 				23ACC0A62BB4026E00AAA5D8 /* Market.swift in Sources */,
+				23884C332BD6C43C00B74846 /* OrderViewModel.swift in Sources */,
 				23F4A8A42BBBAC7A00D6F356 /* Date+Extension.swift in Sources */,
 				237F63D72BB814B300BA815D /* Numeric+Extension.swift in Sources */,
+				23884C352BD6C4D200B74846 /* OrderBook.swift in Sources */,
 				23ACC0A12BB3F38800AAA5D8 /* APIManager.swift in Sources */,
 				23ACC0A42BB3F5B000AAA5D8 /* CoinlistViewModel.swift in Sources */,
 				23ACC0B12BBD516F00AAA5D8 /* Ticker.swift in Sources */,
