@@ -43,8 +43,14 @@ struct DetailView: View {
                 }
                 .padding(.top, 12)
                 .padding(.bottom, -8.5)
+            
+            switch viewModel.selectedViewType {
+            case .chart:
+                ChartView(market: market)
+            case .order:
+                OrderView(market: market)
+            }
             Spacer()
-        }
             
         } //Vstack
         .background(.walletYellow.opacity(0.2))
