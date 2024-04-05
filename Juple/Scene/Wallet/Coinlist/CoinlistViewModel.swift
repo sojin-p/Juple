@@ -14,6 +14,8 @@ final class CoinlistViewModel: ObservableObject {
     
     @Published var selectedSegment: CurrencyType = .krw
     
+    @Published var selectedViewType: DetailViewType = .chart
+    
     @Published var tickerItems: [String: TickerItem] = [:]
     
     @Published var candles: [Candle] = []
