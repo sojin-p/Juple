@@ -22,8 +22,7 @@ struct CoinlistView: View {
                     viewModel.filteredCoins(selectedSeg)
                     viewModel.selectedSegment = selectedSeg
                 })
-            
-            .padding(.vertical, 8)
+            .padding(.vertical, 10)
             
             ForEach(viewModel.filteredCoins, id: \.self) { item in
                 NavigationLink(value: item) {
@@ -55,10 +54,10 @@ struct CoinlistView: View {
     func cells(_ alignment: HorizontalAlignment, topTitle: String, bottomTitle: String, color: Color) -> some View {
         VStack(alignment: alignment) {
             Text(topTitle)
-                .fontWeight(.bold)
                 .padding(.vertical, 1)
+                .font(.system(size: 18, weight: .bold))
             Text(bottomTitle)
-                .font(.caption)
+                .font(.system(size: 14))
                 .foregroundStyle(color)
         } //VStack
     }
